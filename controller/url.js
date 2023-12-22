@@ -61,7 +61,7 @@ module.exports.getUrlAnalysis = async (req, res) => {
 module.exports.getUrlData = async (req, res) => {
     const { id } = req.params;
     try {
-        const urlData = await urlModal.findOne({ _id: id })
+        const urlData = await urlModal.findOne({ _id: id }).select('-_id shortUrlId fullUrl clicks')
         if (urlData) {
             return res.status(200).json({ urlData })
         } else {

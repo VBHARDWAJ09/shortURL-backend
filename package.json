@@ -16,7 +16,10 @@
     "express-validator": "^7.0.1",
     "he": "^1.2.0",
     "mongoose": "^8.0.3",
-    "short-unique-id": "^5.0.3"
+    "short-unique-id": "^5.0.3",
+    "swagger": "^0.7.5",
+    "swagger-ui-express": "^5.0.0",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"

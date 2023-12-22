@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: Short Url
+  description: Short Url Api's collection.
+  version: 0.1.9
+
+servers:
+  - url: https://shorturl-backend-vo35.onrender.com/
+
+paths:
+  /api/url:
+    post:
+      summary: Creates a shortUrl from complete url.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+      responses: 
+        '201':
+          description: Created
+    
+  /api/{shortUrl}:
+    get:
+      summary: Returns complete url
+      parameters:
+        - name: shortUrl
+          in: path
+          required: true
+          description: Shorturl.
+          schema:
+            type : string
+            minimum: 1
+      responses: 
+        '200':
+          description: OK
+  
+  /api/details/{page}:
+    get:
+      summary: Returns a list of complete urls with pagination
+      parameters:
+        - name: page
+          in: path
+          required: true
+          description: page Number.
+          schema:
+            type : integer
+      responses: 
+        '200':
+          description: OK
+
+  /api/url-details/{id}:
+    get:
+      summary: Returns data about the specified id url
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: url Id.
+          schema:
+            type : string
+      responses: 
+        '200':
+          description: OK
