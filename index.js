@@ -3,6 +3,7 @@ const app = express()
 const constants = require('./config/constants')
 const connect = require('./config/db')
 const url = require('./routes/url')
+const user = require('./routes/user')
 const cors = require('cors')
 const { swaggerServe, swaggerSetup } = require('./services/swagger')
 
@@ -17,5 +18,6 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api', url)
+app.use('/api', user)
 
 app.listen(constants.port, () => console.log(`Example app listening on port ${constants.port}!`))

@@ -6,8 +6,47 @@ info:
 
 servers:
   - url: https://shorturl-backend-vo35.onrender.com/
+  - url: http://localhost:9000/
 
 paths:
+  /api/register:
+    post:
+      summary: Creates a user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: User Created
+
+  /api/login:
+    post:
+      summary: User Login Api.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          description: User Login and get a token
+
   /api/url:
     post:
       summary: Creates a shortUrl from complete url.
@@ -20,10 +59,12 @@ paths:
               properties:
                 url:
                   type: string
-      responses: 
-        '201':
+      responses:
+        "200":
           description: Created
-    
+    security:
+      - authorization: []
+
   /api/{shortUrl}:
     get:
       summary: Returns complete url
@@ -33,12 +74,12 @@ paths:
           required: true
           description: Shorturl.
           schema:
-            type : string
+            type: string
             minimum: 1
-      responses: 
-        '200':
+      responses:
+        "200":
           description: OK
-  
+
   /api/details/{page}:
     get:
       summary: Returns a list of complete urls with pagination
@@ -48,10 +89,12 @@ paths:
           required: true
           description: page Number.
           schema:
-            type : integer
-      responses: 
-        '200':
+            type: integer
+      responses:
+        "200":
           description: OK
+    security:
+      - authorization: []
 
   /api/url-details/{id}:
     get:
@@ -62,7 +105,9 @@ paths:
           required: true
           description: url Id.
           schema:
-            type : string
-      responses: 
-        '200':
+            type: string
+      responses:
+        "200":
           description: OK
+    security:
+      - authorization: []

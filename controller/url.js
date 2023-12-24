@@ -11,6 +11,10 @@ module.exports.shortUrl = async (req, res) => {
             const { url } = req.body
             const decodedUrl = he.decode(url)
             const UrlExist = await urlModal.findOne({ fullUrl: decodedUrl })
+            const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+            if (!urlRegex.test(decodedUrl)) {
+                return res.status(400).json({ errors: [{ msg: "Invalid Url" }] })
+            }
             if (!UrlExist) {
                 const uid = new ShortUniqueId({ length: 10 });
                 const shortId = uid.rnd();
