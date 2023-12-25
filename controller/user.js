@@ -35,7 +35,7 @@ const loginController = async (req, res) => {
                     const token = await createToken({ id: user._id, name: user.name })
                     return res.status(200).json({ msg: "Login successful", token })
                 } else {
-                    return res.status(204).json({ errors: [{ msg: `Incorrect password` }] })
+                    return res.status(201).json({ errors: [{ msg: `Incorrect password` }] })
                 }
             } else {
                 return res.status(203).json({ errors: [{ msg: `User doest not exist` }] })
