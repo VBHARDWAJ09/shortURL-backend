@@ -1,4 +1,4 @@
-const { validationResult, Result, body } = require('express-validator')
+const { validationResult } = require('express-validator')
 const { filterKeysFromArray } = require('../services/commonServices')
 const ShortUniqueId = require('short-unique-id')
 const urlModal = require('../model/url')
@@ -17,7 +17,15 @@ module.exports.shortUrl = async (req, res) => {
             }
             if (!UrlExist) {
                 const uid = new ShortUniqueId({ length: 10 });
-                const shortId = uid.rnd();
+                let shortId = uid.rnd();
+                while (true) {
+                    let shortIdExist = await urlModal.findOne({ shortUrlId: shortId })
+                    if (shortIdExist) {
+                        shortId = uid.rnd();
+                    }else{
+                        break;
+                    }
+                }
                 await urlModal.create({ shortUrlId: shortId, fullUrl: decodedUrl.toString(), clicks: 0 })
                 return res.status(200).json({ msg: `Short Url has been generated`, shortUrl: shortId, decodedUrl })
             } else {
